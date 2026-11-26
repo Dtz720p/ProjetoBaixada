@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baixada Santista</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Gasoek+One&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        color: #2b241d;
+        background-color: #faefe0;
+        overflow-x: hidden;
+      }
+
+      .esquerda {
+        background-color: #c5dcfa;
+        color: #004ac9;
+        min-height: 100vh;
+      }
+
+      @media (min-width: 992px) {
+        .esquerda {
+          position: sticky;
+          top: 0;
+          height: 100vh;
+        }
+      }
+
+      .menu {
+        border-radius: 50px;
+        padding: 16px 24px;
+        border: 1.5px solid #000;
+      }
+
+      .titulo {
+        font-family: "Gasoek One", sans-serif;
+        font-weight: 400;
+        font-size: clamp(2.8rem, 4.8vw, 5.2rem);
+        line-height: 0.9;
+        letter-spacing: -0.01em;
+        text-align: center;
+        color: #004ac9;
+      }
+
+      .subtitulo {
+        max-width: 310px;
+        font-size: 0.95rem;
+        line-height: 1.35;
+      }
+
+      .faixa {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        padding: 1rem 0;
+      }
+
+      .faixa-texto {
+        display: inline-flex;
+        gap: 1.5rem;
+        animation: passar 18s linear infinite;
+      }
+
+      @keyframes passar {
+        0% {
+          transform: translateX(179%);
+        }
+        100% {
+          transform: translateX(-100%);
+        }
+      }
+
+      .topo {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem 1rem;
+        overflow: hidden;
+      }
+
+      .fundo-topo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+      }
+
+      .card-topo {
+        position: relative;
+        z-index: 1;
+        background: #fff;
+        border-radius: 18px;
+        padding: 12px;
+        width: 100%;
+        max-width: 310px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      }
+
+      .scroll {
+        position: absolute;
+        bottom: 24px;
+        z-index: 1;
+        font-size: 0.75rem;
+        color: #fffefd;
+        text-align: center;
+        line-height: 1.2;
+        font-weight: 500;
+      }
+
+      .cidades {
+        background-color: #faefe0;
+        padding: 5rem 1.5rem 3rem;
+      }
+
+      .cidades h2 {
+        font-size: 2rem;
+        letter-spacing: -0.02em;
+      }
+
+      .carde {
+        background: #fff;
+        border-radius: 18px;
+        padding: 12px;
+        width: 100%;
+        max-width: 320px;
+        margin: 0 auto 2rem;
+        transition: transform 0.2s ease;
+      }
+
+      .carde:hover {
+        transform: translateY(-4px);
+      }
+
+      .carde a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .card-topo img,
+      .carde img {
+        width: 100%;
+        height: 210px;
+        object-fit: cover;
+        border-radius: 12px;
+      }
+
+      .data {
+        font-size: 0.7rem;
+        color: #8c857b;
+        letter-spacing: 0.05em;
+        margin-top: 1.2rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .nome {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+      }
+
+      .borda {
+        width: 100%;
+        height: auto;
+        display: block;
+        margin-bottom: -1px;
+      }
+
+      .rodape {
+        background-color: #5f6d3b;
+        color: #c5dcfa;
+        padding: 4rem 1.5rem 3rem;
+        text-align: center;
+      }
+
+      .slogan {
+        font-family: "Gasoek One", sans-serif;
+        font-size: clamp(2.5rem, 5vw, 4.2rem);
+        line-height: 0.92;
+        letter-spacing: -0.01em;
+        color: #c5dcfa;
+      }
+
+      .creditos {
+        font-size: 0.7rem;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container-fluid p-0">
+      <div class="row g-0">
+        <div
+          class="col-12 col-lg-5 esquerda d-flex flex-column justify-content-between"
+        >
+          <header class="d-flex justify-content-center pt-4">
+            <nav class="menu d-flex gap-4 align-items-center">
+              <a href="#" class="text-decoration-none text-dark fw-bold small"
+                >Início</a
+              >
+              <a
+                href="Cidade.html"
+                class="text-decoration-none text-muted small"
+                >Cidades</a
+              >
+            </nav>
+          </header>
+
+          <div
+            class="d-flex flex-column align-items-center text-center px-4 my-auto"
+          >
+            <h1 class="titulo mb-4">Baixada<br />Santista</h1>
+
+            <div class="mb-3" style="width: 120px">
+              <img src="img/Train illustration.png" alt="" class="img-fluid" />
+            </div>
+
+            <p class="subtitulo fw-medium mb-0">
+              Conheça tudo sobre um dos principais litorais do país
+            </p>
+          </div>
+
+          <div class="faixa">
+            <div class="faixa-texto small fw-medium align-items-center">
+              <span><i class="bi bi-globe"></i> Located in</span>
+              <span><i class="bi bi-globe"></i> São Paulo, Brasil</span>
+              <span><i class="bi bi-globe"></i> 23.9508° S</span>
+              <span><i class="bi bi-globe"></i> 46.3631° O</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-12 col-lg-7">
+          <section class="topo">
+            <img
+              src="IMG/AdobeStock_490567349.jpeg"
+              alt=""
+              class="fundo-topo"
+            />
+
+            <div class="card-topo text-center">
+              <img src="img/AdobeStock_182260849.jpeg" alt="" />
+              <p class="data">Conheça sobre</p>
+              <h2 class="nome">Baixada Santista</h2>
+            </div>
+
+            <div class="scroll">Scroll para baixo<br />↓</div>
+          </section>
+
+          <section class="cidades text-center">
+            <h2 class="fw-semibold mb-5">Algumas Cidades da Baixada</h2>
+
+            <div class="carde">
+              <a href="Cidade.html">
+                <img src="img/saoVicente img/saovicente_fundo.webp" alt="" />
+                <p class="data">22 de janeiro, 1532</p>
+                <h3 class="nome">Sao Vicente</h3>
+              </a>
+            </div>
+
+            <div class="carde">
+              <a href="Cidade.html">
+                <img src="img/praiaGrande img/pg_fundo.jpg" alt="" />
+                <p class="data">19 de Janeiro, 1967</p>
+                <h3 class="nome">Praia Grande</h3>
+              </a>
+            </div>
+
+            <div class="carde">
+              <a href="Cidade.html">
+                <img src="img/santos img/santos_fundo.webp" alt="" />
+                <p class="data">26 de janeiro de 1546</p>
+                <h3 class="nome">Santos</h3>
+              </a>
+            </div>
+
+            <div class="carde">
+              <a href="Cidade.html">
+                <img src="img/guarujá img/guaruja_fundo.jpeg" alt="" />
+                <p class="data">30 de junho de 1934</p>
+                <h3 class="nome">Guaruja</h3>
+              </a>
+            </div>
+
+            <div class="mt-4">
+              <a
+                href="Cidade.html"
+                class="text-dark small text-decoration-underline"
+                >Veja mais cidades</a
+              >
+            </div>
+          </section>
+
+          <img src="img/Border a.png" alt="" class="borda" />
+
+          <footer class="rodape">
+            <p class="small mb-2">Fim da Pagina</p>
+
+            <h2 class="slogan mb-4">Da serra<br />Para o mar.</h2>
+
+            <nav class="d-flex justify-content-center gap-3 mb-4 small">
+              <a href="#" class="text-reset text-decoration-underline"
+                >Inicio</a
+              >
+              <a href="Cidade.html" class="text-reset text-decoration-underline"
+                >Cidades</a
+              >
+            </nav>
+
+            <p class="creditos mb-0">
+              Feito por Michael Vinicius, Pedro Gabriel, Heitor Oliveira, Maria
+              Gabrieli e Eduardo de Castro
+            </p>
+          </footer>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+<!-- Todas as telas foram feitas utilizando o figma como protótipo  !!! -->

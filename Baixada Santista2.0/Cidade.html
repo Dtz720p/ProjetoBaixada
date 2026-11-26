@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baixada Santista - Cidades</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        background-color: #fff;
+        font-family: "Inter", sans-serif;
+        overflow-x: hidden;
+      }
+
+      .menu {
+        background-color: #fff;
+        border-radius: 50px;
+        padding: 16px 24px;
+        border: 1.5px solid #000;
+      }
+
+      .banner {
+        position: relative;
+        width: 92%;
+        max-width: 1400px;
+        height: 80vh;
+        min-height: 620px;
+        margin: 0 auto;
+        border-radius: 42px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+      }
+
+      .fundo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 0;
+      }
+
+      .sombra {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.35) 0%,
+          rgba(0, 0, 0, 0) 65%
+        );
+        z-index: 1;
+        transition: opacity 0.15s ease-out;
+        pointer-events: none;
+      }
+
+      .intro {
+        position: relative;
+        z-index: 4;
+        color: #fff;
+        padding-left: 5rem;
+        max-width: 540px;
+        transition:
+          opacity 0.15s ease-out,
+          transform 0.15s ease-out;
+      }
+
+      .intro h1 {
+        font-size: clamp(3.5rem, 6vw, 5.5rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        margin-bottom: 0.5rem;
+      }
+
+      .intro p {
+        font-size: 1.35rem;
+        font-weight: 500;
+        line-height: 1.3;
+        margin-bottom: 2rem;
+      }
+
+      .btn-mais {
+        background: #fff;
+        color: #000;
+        border: none;
+        border-radius: 14px;
+        padding: 12px 48px;
+        font-weight: 700;
+        font-size: 1.25rem;
+        transition: transform 0.2s ease;
+      }
+
+      .btn-seta {
+        background: #fff;
+        color: #000;
+        border: none;
+        border-radius: 50%;
+        width: 54px;
+        height: 54px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        transition: transform 0.2s ease;
+      }
+
+      .btn-mais:hover,
+      .btn-seta:hover {
+        transform: scale(1.05);
+      }
+
+      .carrossel {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1.5rem;
+        padding: 0 4rem 0 52%;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;
+      }
+
+      .carrossel::-webkit-scrollbar {
+        display: none;
+      }
+
+      .cidade {
+        position: relative;
+        flex: 0 0 200px;
+        height: 255px;
+        background: #fff;
+        border-radius: 22px;
+        padding: 12px;
+        text-align: center;
+        cursor: pointer;
+        overflow: hidden;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        transition: all 0.5s cubic-bezier(0.27, 1, 0.6, 1);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .cidade .foto {
+        width: 100%;
+        height: 145px;
+        border-radius: 16px;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.27, 1, 0.6, 1);
+      }
+
+      .cidade .foto img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .info {
+        margin-top: auto;
+        padding-bottom: 4px;
+        transition: opacity 0.25s ease;
+      }
+
+      .info .data {
+        font-size: 0.72rem;
+        color: #6c6c6c;
+        margin-bottom: 2px;
+      }
+
+      .info .titulo {
+        font-size: 1.35rem;
+        font-weight: 600;
+        color: #2b1d12;
+        margin: 0;
+      }
+
+      .info-grande {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 1.8rem;
+        text-align: left;
+        color: #fff;
+        background: linear-gradient(
+          to top,
+          rgba(0, 0, 0, 0.75) 0%,
+          rgba(0, 0, 0, 0) 100%
+        );
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.4s ease;
+        pointer-events: none;
+      }
+
+      .descricao {
+        font-size: 0.65rem;
+        max-width: 150px;
+        opacity: 0.9;
+      }
+
+      .btn-explorar {
+        background: rgba(255, 255, 255, 0.293);
+        backdrop-filter: blur(6px);
+        color: #18261a;
+        border: 1px solid #fff;
+        border-radius: 50px;
+        padding: 6px 22px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .cidade:hover {
+        flex: 0 0 350px;
+        height: 490px;
+        padding: 0;
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3);
+      }
+
+      .cidade:hover .foto {
+        height: 100%;
+        border-radius: 22px;
+      }
+
+      .cidade:hover .info {
+        opacity: 0;
+        position: absolute;
+      }
+
+      .cidade:hover .info-grande {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="d-flex justify-content-center py-4">
+      <nav class="menu d-flex gap-4 align-items-center">
+        <a href="index.html" class="text-decoration-none text-muted small"
+          >Início</a
+        >
+        <a href="#" class="text-decoration-none text-dark fw-bold small"
+          >Cidades</a
+        >
+      </nav>
+    </header>
+
+    <main class="banner">
+      <img src="IMG/AdobeStock_437290622.jpeg" alt="" class="fundo" />
+      <div class="sombra" id="sombra"></div>
+
+      <div class="intro" id="intro">
+        <h1>Cidades</h1>
+        <p>Conheça a história e as praias das cidades da Baixada Santista</p>
+
+        <div class="d-flex align-items-center gap-3">
+          <button class="btn-mais" onclick="abrir()">Conhecer</button>
+          <button class="btn-seta" onclick="abrir()">
+            <i class="bi bi-arrow-up-right"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="carrossel" id="carrossel">
+        <div class="cidade">
+          <div class="foto">
+            <img src="img/Santos IMG/santos_fundo.webp" alt="" />
+          </div>
+          <div class="info">
+            <p class="data">26 · 01 · 1546</p>
+            <h3 class="titulo">Santos</h3>
+          </div>
+          <div class="info-grande">
+            <h4 class="fs-4 fw-normal mb-0">Explore mais</h4>
+            <h3 class="fs-3 fw-bold mb-3">
+              Santos<span class="text-primary">.</span>
+            </h3>
+            <div class="d-flex justify-content-between align-items-end">
+              <p class="descricao mb-0">
+                Conheça a historia e a beleza de Santos
+              </p>
+              <a href="santos.html" class="btn-explorar">Explore</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cidade">
+          <div class="foto">
+            <img src="img/SaoVicente IMG/saovicente_fundo.webp" alt="" />
+          </div>
+          <div class="info">
+            <p class="data">22 · 01 · 1532</p>
+            <h3 class="titulo">São Vicente</h3>
+          </div>
+          <div class="info-grande">
+            <h4 class="fs-4 fw-normal mb-0">Explore mais</h4>
+            <h3 class="fs-3 fw-bold mb-3">
+              São Vicente<span class="text-primary">.</span>
+            </h3>
+            <div class="d-flex justify-content-between align-items-end">
+              <p class="descricao mb-0">
+                Conheça a historia e a beleza de São Vicente
+              </p>
+              <a href="saovicente.html" class="btn-explorar">Explore</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cidade">
+          <div class="foto">
+            <img src="img/PraiaGrande IMG/pg_fundo.jpg" alt="" />
+          </div>
+          <div class="info">
+            <p class="data">19 · 01 · 1967</p>
+            <h3 class="titulo">Praia Grande</h3>
+          </div>
+          <div class="info-grande">
+            <h4 class="fs-4 fw-normal mb-0">Explore mais</h4>
+            <h3 class="fs-3 fw-bold mb-3">
+              Praia Grande<span class="text-primary">.</span>
+            </h3>
+            <div class="d-flex justify-content-between align-items-end">
+              <p class="descricao mb-0">
+                Conheça a historia e a beleza de Praia Grande
+              </p>
+              <a href="pg.html" class="btn-explorar">Explore</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cidade">
+          <div class="foto">
+            <img src="img/Guarujá IMG/guaruja_fundo.jpeg" alt="" />
+          </div>
+          <div class="info">
+            <p class="data">30 · 06 · 1934</p>
+            <h3 class="titulo">Guarujá</h3>
+          </div>
+          <div class="info-grande">
+            <h4 class="fs-4 fw-normal mb-0">Explore mais</h4>
+            <h3 class="fs-3 fw-bold mb-3">
+              Guarujá<span class="text-primary">.</span>
+            </h3>
+            <div class="d-flex justify-content-between align-items-end">
+              <p class="descricao mb-0">
+                Conheça a historia e a beleza do Guarujá
+              </p>
+              <a href="guaruja.html" class="btn-explorar">Explore</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cidade">
+          <div class="foto">
+            <img src="img/Mongaguá IMG/mongagua_fundo.jpg" alt="" />
+          </div>
+          <div class="info">
+            <p class="data">07 · 12 · 1959</p>
+            <h3 class="titulo">Mongaguá</h3>
+          </div>
+          <div class="info-grande">
+            <h4 class="fs-4 fw-normal mb-0">Explore mais</h4>
+            <h3 class="fs-3 fw-bold mb-3">
+              Mongaguá<span class="text-primary">.</span>
+            </h3>
+            <div class="d-flex justify-content-between align-items-end">
+              <p class="descricao mb-0">
+                Conheça a historia e a beleza de Mongaguá
+              </p>
+              <a href="mongagua.html" class="btn-explorar">Explore</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cidade">
+          <div class="foto">
+            <img src="img/Itanhaém IMG/itanhaem_fundo.webp" alt="" />
+          </div>
+          <div class="info">
+            <p class="data">22 · 04 · 1532</p>
+            <h3 class="titulo">Itanhaém</h3>
+          </div>
+          <div class="info-grande">
+            <h4 class="fs-4 fw-normal mb-0">Explore mais</h4>
+            <h3 class="fs-3 fw-bold mb-3">
+              Itanhaém<span class="text-primary">.</span>
+            </h3>
+            <div class="d-flex justify-content-between align-items-end">
+              <p class="descricao mb-0">
+                Conheça a historia e a beleza de Itanhaém
+              </p>
+              <a href="itanhaem.html" class="btn-explorar">Explore</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cidade">
+          <div class="foto">
+            <img src="img/Peruíbe IMG/peruibe_fundo.webp" alt="" />
+          </div>
+          <div class="info">
+            <p class="data">18 · 02 · 1959</p>
+            <h3 class="titulo">Peruíbe</h3>
+          </div>
+          <div class="info-grande">
+            <h4 class="fs-4 fw-normal mb-0">Explore mais</h4>
+            <h3 class="fs-3 fw-bold mb-3">
+              Peruíbe<span class="text-primary">.</span>
+            </h3>
+            <div class="d-flex justify-content-between align-items-end">
+              <p class="descricao mb-0">
+                Conheça a historia e a beleza de Peruíbe
+              </p>
+              <a href="peruibe.html" class="btn-explorar">Explore</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cidade">
+          <div class="foto">
+            <img
+              src="https://media.istockphoto.com/id/2267772567/pt/foto/oil-storage-tanks-at-presidente-bernardes-refinery-complex.jpg?s=612x612&w=0&k=20&c=uEXEpAu1G48SsJSsx-prgqiJ4IjsNoPfGUpUCNeqR9g="
+              alt=""
+            />
+          </div>
+          <div class="info">
+            <p class="data">09 · 04 · 1949</p>
+            <h3 class="titulo">Cubatão</h3>
+          </div>
+          <div class="info-grande">
+            <h4 class="fs-4 fw-normal mb-0">Explore mais</h4>
+            <h3 class="fs-3 fw-bold mb-3">
+              Cubatão<span class="text-primary">.</span>
+            </h3>
+            <div class="d-flex justify-content-between align-items-end">
+              <p class="descricao mb-0">
+                Conheça a historia e a beleza de Cubatão
+              </p>
+              <a href="cubatao.html" class="btn-explorar">Explore</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="cidade">
+          <div class="foto">
+            <img src="img/Bertioga IMG/bertioga_fundo.jpeg" alt="" />
+          </div>
+          <div class="info">
+            <p class="data">19 · 05 · 1991</p>
+            <h3 class="titulo">Bertioga</h3>
+          </div>
+          <div class="info-grande">
+            <h4 class="fs-4 fw-normal mb-0">Explore mais</h4>
+            <h3 class="fs-3 fw-bold mb-3">
+              Bertioga<span class="text-primary">.</span>
+            </h3>
+            <div class="d-flex justify-content-between align-items-end">
+              <p class="descricao mb-0">
+                Conheça a historia e a beleza de Bertioga
+              </p>
+              <a href="bertioga.html" class="btn-explorar">Explore</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      var carrossel = document.getElementById("carrossel");
+      var intro = document.getElementById("intro");
+      var sombra = document.getElementById("sombra");
+
+      function abrir() {
+        carrossel.scrollTo({ left: 550, behavior: "smooth" });
+      }
+
+      carrossel.addEventListener(
+        "wheel",
+        function (e) {
+          e.preventDefault();
+          carrossel.scrollLeft += e.deltaY + e.deltaX;
+        },
+        { passive: false },
+      );
+
+      carrossel.addEventListener("scroll", function () {
+        var pos = carrossel.scrollLeft;
+        var prog = Math.min(pos / 280, 1);
+
+        intro.style.opacity = 1 - prog;
+        intro.style.transform = "translateX(-" + prog * 60 + "px)";
+        sombra.style.opacity = 1 - prog;
+
+        if (pos > 80) {
+          intro.style.pointerEvents = "none";
+        } else {
+          intro.style.pointerEvents = "auto";
+        }
+      });
+    </script>
+  </body>
+</html>
